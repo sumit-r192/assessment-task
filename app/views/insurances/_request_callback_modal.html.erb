@@ -1,0 +1,28 @@
+<div class="modal-wrapper modal-is-opened" style="display: block;">
+  <div class="c-modal c-homeowner__modal js-homeowner-title-modal modal modal-is-initialized modal-is-opened" tabindex="-1">
+    <div class="js-homeowner-title-modal-content">
+      <div class="c-modal__content c-homeowner__modal__content js-homeowner-title-modal-new-content">
+        <div class="success-msg" style="color: green; font-weight: 700; text-align: center;"></div>
+        <div class="form">
+          <%= form_for(@request_callback, remote: true) do |f| %>
+            <%= f.hidden_field :insurance_id %>
+            <h3 class="c-homeowner__modal__title">Request a callback</h3>
+            <div class="c-homeowner__modal__form">
+              <div class="c-homeowner__modal__form__row">
+                <%= f.number_field :phone_number, class: "c-homeowner__modal__form__input", placeholder: "Phone Number:", required: true %>
+              </div>
+              <div class="c-homeowner__modal__form__row">
+                <%= f.select :best_time_to_call, RequestCallback::BEST_TIME.map{|a| [a[0], a[1]]}, { prompt: "Best moment to call you:"}, class: "c-homeowner__modal__form__select" %>
+              </div>
+            </div>
+            <div class="c-homeowner__modal__form c-homeowner__modal__form--column">
+              <div class="c-homeowner__modal__form__row c-homeowner__modal__form__row--full-size c-homeowner__modal__form__row--resp-col">
+                <%= f.submit 'Submit', class: "c-button c-button--tertiary c-button--small-margin" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

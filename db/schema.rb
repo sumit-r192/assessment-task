@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_21_072718) do
+ActiveRecord::Schema.define(version: 2022_07_21_082710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(version: 2022_07_21_072718) do
     t.string "property_address"
     t.string "property_city"
     t.bigint "property_zip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "request_callbacks", force: :cascade do |t|
+    t.bigint "phone_number"
+    t.string "best_time_to_call"
+    t.integer "insurance_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

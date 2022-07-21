@@ -52,7 +52,7 @@
       <div class="c-homeowner__result__form__row">
         <div class="c-homeowner__result__form__label">Type of property:*</div>
         <div>
-          <%= f.select :type_of_property,Insurance::TYPEOFPROPERTI.map{|a| [a[0],a[1]]},{prompt: "(Click here to choose)"}, class: "c-homeowner__form__select c-homeowner__form__select--higher" %>
+          <%= f.select :type_of_property,Insurance::TYPE_OF_PROPERTY.map{|a| [a[0],a[1]]},{prompt: "(Click here to choose)"}, class: "c-homeowner__form__select c-homeowner__form__select--higher" %>
         </div>
       </div>
       <div class="c-homeowner__result__form__row">
@@ -118,11 +118,11 @@
         <div class="c-homeowner__result__form__label">Is the Insured Property bound by water (lac, stream, river, etc.)?*</div>
         <div class="c-homeowner__result__form__check">
           <label>
-            <%= f.check_box :bound_by_water, 1, class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <%= f.check_box :bound_by_water, value: 1, class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
             <span>Yes</span>
           </label>            
           <label>
-            <%= f.check_box :bound_by_water, 0, class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <%= f.check_box :bound_by_water, value: 0, class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
             <span>No</span>
           </label>          
         </div>

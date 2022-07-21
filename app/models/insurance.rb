@@ -1,7 +1,8 @@
 class Insurance < ApplicationRecord
   before_save :calculate_insurance_premium
+  has_one :request_callback
 
-  TYPEOFPROPERTI = [
+  TYPE_OF_PROPERTY = [
     ["Single-family dwelling", 1], ["Condominium", 2], ["Undivided&nbsp;co-ownership", 3], ["Duplex",4], ["Triplex",5], ["Quadruplex",6], ["5 Units",7], ["6 Units",8], ["Vacant property (no building)", 9] 
   ]
 

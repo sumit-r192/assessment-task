@@ -10,7 +10,8 @@ class InsurancesController < ApplicationController
   end
 
   def update
-    @insurance.update(@insurance_callback_params)
+    @insurance.update(insurance_callback_params)
+    @request_callback = @insurance.request_callback || @insurance.build_request_callback
   end
 
   private
