@@ -1,0 +1,39 @@
+<%= form_for(@insurance, remote: true) do |f| %>
+  <div class="c-homeowner__form__content">
+    <div class="c-homeowner__form__column">
+      <div>
+        <%= f.text_field :first_name, class: "c-homeowner__form__input", placeholder: "First name*", required: true %>
+      </div>
+      <div>
+        <%= f.text_field :last_name, class: "c-homeowner__form__input", placeholder: "Last name*", required: true %>
+      </div>
+      <div>
+        <%= f.email_field :email, class: "c-homeowner__form__input", placeholder: "Email*", required: true %>
+      </div>
+      <div>
+        <%= f.text_field :phone_number, class: "c-homeowner__form__input", placeholder: "Phone*", required: true %>
+      </div>
+      <div>
+        <%= f.number_field :assessment, class: "c-homeowner__form__input", placeholder: "Municipal Evaluation of the property*", required: true %>
+      </div>
+    </div>
+    <div class="c-homeowner__form__column">
+      <div>
+        <%= f.text_field :address_line, class: "c-homeowner__form__input", placeholder: "Address*", required: true %>
+      </div>
+      <div>
+        <%= f.number_field :postal_code, class: "c-homeowner__form__input" ,placeholder: "Postal code*", required: true %>
+      </div>
+      <div>
+        <%= f.text_field :city, class: "c-homeowner__form__input", placeholder: "City*", required: true %>
+      </div>
+      <div>
+        <%= f.text_field :province, class: "c-homeowner__form__input", placeholder: "Province*", required: true %>
+      </div>
+    </div>
+  </div>
+  <div>
+    <%= f.submit "Get a quote", class: "c-button c-button--tertiary" %>
+  </div>
+  <div class="c-homeowner__form__required">*Mandatory fields</div>
+<% end %>

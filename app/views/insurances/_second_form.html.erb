@@ -1,0 +1,203 @@
+<%= form_for(@insurance, remote: true, method: :put) do |f| %> 
+  <div>
+    <%= f.hidden_field :first_name %>
+    <%= f.hidden_field :last_name %>
+    <%= f.hidden_field :email %>
+    <%= f.hidden_field :phone_number %>
+    <%= f.hidden_field :address_line %>
+    <%= f.hidden_field :postal_code %>
+    <%= f.hidden_field :city %>
+    <%= f.hidden_field :province %>
+    <%= f.hidden_field :assessment %>
+  </div>
+  <div class="c-homeowner__result__intro">
+    <h4 class="c-homeowner__result__title">Insurance premium</h4>
+    <div class="c-homeowner__result__amount"><%= @insurance&.insurance_premium %>$</div>
+    <div class="c-homeowner__result__desc">For a property valued at <%= @insurance&.assessment %>$, your one time insurance premium is <span class="c-homeowner__result__desc__bold"><%= @insurance&.insurance_premium.round(2) %></span>.</div>
+    <div class="c-homeowner__result__help">To complete your subscription request online, fill the form below or call us at <span class="c-homeowner__result__desc__bold">514-748-4873</span> to complete your request over the phone.</div>
+  </div>
+  <div class="c-homeowner__result__form">
+    <fieldset>
+      <h3 class="c-homeowner__result__form__title">Transaction information</h3>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Language :*</div>
+        <div class="c-homeowner__result__form__check">
+          <label>
+            <%= f.check_box :is_french, class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>French</span>
+          </label>           
+          <label>
+            <%= f.check_box :is_english, class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>English</span>
+          </label>          
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row c-homeowner__result__form__row__column">
+        <div class="c-homeowner__result__form__label">Homeowner(s): Name(s):*</div>
+        <div class="c-homeowner__form__owners">
+          <div class="c-homeowner__form__owners__owner">
+            <%= f.text_field :home_owenr_1, value: @insurance.full_name, class: "c-homeowner__form__input c-homeowner__form__input--no-margin", required: true, placeholder: "1st Homeowner Name" %>
+          </div>
+          <div class="c-homeowner__form__owners__owner">
+            <%= f.text_field :home_owenr_2, class: "c-homeowner__form__input c-homeowner__form__input--no-margin", required: true, placeholder: "2nd Homeowner Name" %>
+          </div>
+          <div class="c-homeowner__form__owners__owner">
+            <%= f.text_field :home_owenr_3, class: "c-homeowner__form__input c-homeowner__form__input--no-margin", required: true, placeholder:"3rd Homeowner Name" %>
+          </div>
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__subtitle">Select / Choose:</div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Type of property:*</div>
+        <div>
+          <%= f.select :type_of_property,Insurance::TYPEOFPROPERTI.map{|a| [a[0],a[1]]},{prompt: "(Click here to choose)"}, class: "c-homeowner__form__select c-homeowner__form__select--higher" %>
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__check">
+          <label>
+            <span class="padding-right">Are you presently the owner of that property ?</span>
+            <%= f.check_box :existing_homeowner %>
+            <span class="two-lines">Yes</span>
+          </label>          
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row c-homeowner__result__form__row--small-margin">
+        <div class="c-homeowner__result__form__label">Purchase date:*</div>
+        <%= f.date_field :purchase_date, class: "js-date-input c-homeowner__form__input c-homeowner__form__input--small c-homeowner__form__input--no-margin", required: true,data: { provide: 'datepicker' }, value: f.object.try(:strftime,"%B %d %Y") %>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        You must already own your property.
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Property value (municipal assessment):</div>
+        <b><%= @insurance.assessment%> $</b>
+      </div>
+    </fieldset>
+  </div>
+  <div class="c-homeowner__result__form">
+    <fieldset>
+      <h3 class="c-homeowner__result__form__title">Property legal description</h3>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__subtitle">Indicate (Mandatory fields):*</div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Lot number(s):*</div>
+        <%= f.text_field :lot_number, class: "c-homeowner__form__input c-homeowner__form__input--small c-homeowner__form__input--no-margin", required: true %>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        (You can find this lot number on your tax account. This is not the ID number but the lot number, cadaster number or legal description).
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Property Address:*</div>
+        <div class="c-homeowner__result__form__grow">
+          <%= f.text_field :property_address, value: @insurance.address_line, class: "c-homeowner__form__input c-homeowner__form__input--no-margin", required: true %>    
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">City*</div>
+        <div class="c-homeowner__result__form__grow">
+          <%= f.text_field :property_city, value: @insurance.city, class: "c-homeowner__form__input c-homeowner__form__input--no-margin", required: true %>
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Postal code*</div>
+        <%= f.text_field :property_zip, value: @insurance.postal_code, class: "c-homeowner__form__input c-homeowner__form__input--small c-homeowner__form__input--no-margin", required: true %>
+      </div>
+    </fieldset>
+  </div>
+  <div class="c-homeowner__result__form">
+    <fieldset>
+      <h3 class="c-homeowner__result__form__title">Information regarding the property</h3>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__subtitle">Select:</div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Is the Insured Property bound by water (lac, stream, river, etc.)?*</div>
+        <div class="c-homeowner__result__form__check">
+          <label>
+            <%= f.check_box :bound_by_water, 1, class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>Yes</span>
+          </label>            
+          <label>
+            <%= f.check_box :bound_by_water, 0, class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>No</span>
+          </label>          
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Is the Insured Property on Municipal Water and Municipal Sewer?*</div>
+        <div class="c-homeowner__result__form__check">
+          <label>
+            <%= f.check_box :water_or_sewer,{} ,1,class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>Yes</span>
+          </label>            
+          <label>
+            <%= f.check_box :water_or_sewer,{}, 0,class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>No</span>
+          </label>         
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Has a title insurance already been issued for the insured property according to the client ?*</div>
+        <div class="c-homeowner__result__form__check">
+          <label>
+            <%= f.check_box :issued_to_client,{} ,1,class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>Yes</span>
+          </label>            
+          <label>
+            <%= f.check_box :issued_to_client,{}, 0,class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>No</span>
+          </label>          
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Has a title insurance been denied for the insured property, to the best of the client's knowledge?*</div>
+        <div class="c-homeowner__result__form__check">
+          <label>
+            <%= f.check_box :denied_to_client,{} ,1,class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>Yes</span>
+          </label>            
+          <label>
+            <%= f.check_box :denied_to_client,{}, 0,class: "js-checkbox-exclusive c-homeowner__form__checkbox" %>
+            <span>No</span>
+          </label>
+          </label>          
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="c-homeowner__result__form">
+    <fieldset>
+      <h3 class="c-homeowner__result__form__title">Notes</h3>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__grow">
+          <%= f.text_area :notes,rows: 3, class: "c-homeowner__form__textarea c-homeowner__form__input--no-margin", placeholder: "checking the details" %>
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Referral agent name</div>
+        <div class="c-homeowner__result__form__grow">
+          <%= f.text_field :referal_agent_name, class: "c-homeowner__form__input c-homeowner__form__input--no-margin" %>
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row">
+        <div class="c-homeowner__result__form__label">Referral agent email</div>
+        <div class="c-homeowner__result__form__grow">
+          <%= f.email_field :referal_agent_email, class: "c-homeowner__form__input c-homeowner__form__input--no-margin" %>
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row c-homeowner__result__form__row--resp-col c-homeowner__result__form__row--margin--top">
+        <div class="c-homeowner__result__form__row__spacing">
+          <%= f.submit "Request a callback", class: 'js-form-multiaction-submit c-button c-button--tertiary' %>
+        </div>
+      </div>
+      <div class="c-homeowner__result__form__row c-homeowner__result__form__row__column">
+        <div>Your request for Title Insurance will be forwarded to our underwriting department and an insurance broker will contact you within 24 to 48 working hours.</div>
+        <div>For any question, please call <strong>514-74 TITRE (84873)</strong> or email at <strong><a href="mailto:assurtitre@jgfortin.com">assurtitre@jgfortin.com</a></strong>.<br>Please note that submitting this form does not mean that you are insured.</div>
+      </div>
+    </fieldset>
+  </div>
+<% end %>
